@@ -1,15 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مسواك</title>
-  <style>
-    body { margin:0; background:#145214; display:flex; align-items:center; justify-content:center; min-height:100vh; font-family:sans-serif; }
-    .loader { color:#fff; font-size:24px; text-align:center; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسواك</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #165313; /* نفس درجة اللون الأخضر الهادئ لتطبيق مسواك */
+            color: white;
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+        h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        p {
+            color: #e0e0e0;
+            font-size: 15px;
+            max-width: 280px;
+            margin: 0 auto 25px auto;
+            line-height: 1.5;
+        }
+        .btn {
+            background-color: #ffffff;
+            color: #165313;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
-  <div class="loader">🌿<br>مسواك</div>
+
+    <div class="container">
+        <div class="icon">📶</div>
+        <h2>لا يوجد اتصال بالإنترنت</h2>
+        <p>يرجى التحقق من جودة الشبكة ثم إعادة المحاولة للدخول إلى تطبيق مسواك.</p>
+        <button class="btn" onclick="checkConnection()">إعادة المحاولة</button>
+    </div>
+
+    <script>
+        // رابط تطبيقك الأساسي المرفوع على نتليفاي
+        const netlifyUrl = "https://miswak-app.netlify.app";
+
+        function checkConnection() {
+            if (navigator.onLine) {
+                // إذا متصل بالنت، يوجه المستخدم فوراً للموقع وتفتح الواجهة كاملة
+                window.location.href = netlifyUrl;
+            } else {
+                // إذا ماكو نت، يبقى بهاي الشاشة الأنيقة تلقائياً
+                console.log("No internet connection.");
+            }
+        }
+
+        // تشغيل الفحص التلقائي فور تحميل الصفحة داخل الـ WebView
+        window.addEventListener('DOMContentLoaded', () => {
+            // مهلة 300 ملي ثانية لضمان استقرار قراءة حالة الشبكة ثم الفحص
+            setTimeout(checkConnection, 300);
+        });
+    </script>
 </body>
 </html>
